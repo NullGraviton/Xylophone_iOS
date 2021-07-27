@@ -20,10 +20,17 @@ class ViewController: UIViewController {
     }
     
     func playSound(soundName : String) {
-        let url = Bundle.main.url(forResource: soundName, withExtension: "wav")
-        player = try! AVAudioPlayer(contentsOf: url!)
-        player.play()
-                
+        guard let url = Bundle.main.url(forResource: soundName, withExtension: "wav") else {
+            return
+        }
+
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player.play()
+        } catch {
+            //You can make workaround for error.
+            print(error)
+        }
     }
 }
 
